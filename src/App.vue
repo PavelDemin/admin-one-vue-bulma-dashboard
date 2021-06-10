@@ -14,7 +14,7 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 
 export default {
-  name: 'Home',
+  name: 'Главная',
   components: {
     FooterBar,
     AsideMenu,
@@ -23,16 +23,13 @@ export default {
   computed: {
     menu () {
       return [
-        'General',
+        'Основное',
         [
           {
             to: '/',
             icon: 'desktop-mac',
-            label: 'Dashboard'
-          }
-        ],
-        'Examples',
-        [
+            label: 'Панель управления'
+          },
           {
             to: '/tables',
             label: 'Tables',
@@ -63,19 +60,6 @@ export default {
                 label: 'Sub-item Two'
               }
             ]
-          }
-        ],
-        'About',
-        [
-          {
-            href: 'https://admin-one.justboil.me',
-            label: 'Premium Demo',
-            icon: 'credit-card'
-          },
-          {
-            href: 'https://justboil.me/bulma-admin-template/one',
-            label: 'About',
-            icon: 'help-circle'
           }
         ]
       ]

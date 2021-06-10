@@ -22,19 +22,19 @@
           <img :src="props.row.avatar" class="is-rounded">
         </div>
       </b-table-column>
-      <b-table-column label="Name" field="name" sortable v-slot="props">
+      <b-table-column label="Имя" field="name" sortable v-slot="props">
         {{ props.row.name }}
       </b-table-column>
-      <b-table-column label="Company" field="company" sortable v-slot="props">
+      <b-table-column label="Telegram ID" field="name" sortable v-slot="props">
+        {{ props.row.name }}
+      </b-table-column>
+      <b-table-column label="Username" field="company" sortable v-slot="props">
         {{ props.row.company }}
       </b-table-column>
-      <b-table-column label="City" field="city" sortable v-slot="props">
+      <b-table-column label="Телефон" field="city" sortable v-slot="props">
         {{ props.row.city }}
       </b-table-column>
-      <b-table-column cell-class="is-progress-col" label="Progress" field="progress" sortable v-slot="props">
-        <progress class="progress is-small is-primary" :value="props.row.progress" max="100">{{ props.row.progress }}</progress>
-      </b-table-column>
-      <b-table-column label="Created" v-slot="props">
+      <b-table-column label="Создан" v-slot="props">
         <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
@@ -54,13 +54,13 @@
             <p>
               <b-icon icon="dots-horizontal" size="is-large" />
             </p>
-            <p>Fetching data...</p>
+            <p>Загрузка...</p>
           </template>
           <template v-else>
             <p>
               <b-icon icon="emoticon-sad" size="is-large" />
             </p>
-            <p>Nothing's here&hellip;</p>
+            <p>Ничего не найдено&hellip;</p>
           </template>
         </div>
       </section>
