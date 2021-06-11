@@ -31,7 +31,7 @@
       <b-table-column label="Username" field="company" sortable v-slot="props">
         {{ props.row.company }}
       </b-table-column>
-      <b-table-column label="Телефон" field="city" sortable v-slot="props">
+      <b-table-column label="Телефон" type="tel" field="phone" sortable v-slot="props">
         {{ props.row.city }}
       </b-table-column>
       <b-table-column label="Создан" v-slot="props">

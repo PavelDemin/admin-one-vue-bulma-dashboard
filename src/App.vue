@@ -14,7 +14,7 @@ import AsideMenu from '@/components/AsideMenu'
 import FooterBar from '@/components/FooterBar'
 
 export default {
-  name: 'Главная',
+  name: 'admin',
   components: {
     FooterBar,
     AsideMenu,
@@ -67,7 +67,7 @@ export default {
   },
   created () {
     this.$store.commit('user', {
-      name: 'John Doe',
+      name: 'Станислав',
       email: 'john@example.com',
       avatar: 'https://avatars.dicebear.com/v2/gridy/John-Doe.svg'
     })

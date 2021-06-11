@@ -8,11 +8,6 @@
       </router-link>
     </hero-bar>
     <section class="section is-main-section">
-      <notification class="is-info">
-        <div>
-          <span><b>Demo only.</b> No data will be saved/updated</span>
-        </div>
-      </notification>
       <tiles>
         <card-component
           :title="formCardTitle"
@@ -24,43 +19,50 @@
               <b-input v-model="form.id" custom-class="is-static" readonly />
             </b-field>
             <hr />
-            <b-field label="Avatar" horizontal>
-              <file-picker />
-            </b-field>
-            <hr />
-            <b-field label="Name" message="Client name" horizontal>
+            <b-field label="Имя" message="Имя пользователя" horizontal>
               <b-input
                 v-model="form.name"
-                placeholder="e.g. John Doe"
+                placeholder="Иван Петров"
                 required
               />
             </b-field>
-            <b-field label="Company" message="Client's company name" horizontal>
+            <b-field label="TelegramID" message="Telegram ID" horizontal>
               <b-input
                 v-model="form.company"
-                placeholder="e.g. Berton & Steinway"
+                placeholder="21365466548"
                 required
               />
             </b-field>
-            <b-field label="City" message="Client's city" horizontal>
+            <b-field label="Username" message="Telegram username" horizontal>
               <b-input
                 v-model="form.city"
-                placeholder="e.g. Geoffreyton"
+                placeholder="@ivanpetrov"
                 required
               />
             </b-field>
-            <b-field label="Created" horizontal>
+            <b-field label="Телефон" message="Номер телефона" horizontal>
+              <b-input
+                v-model="form.city"
+                placeholder="+79998887654"
+                required
+              />
+            </b-field>
+            <b-field label="Интересы" class="has-check" horizontal>
+              <checkbox-picker
+                v-model="customElementsForm.checkbox"
+                :options="{ lorem: 'Спорт', ipsum: 'Бизнес', dolore: 'IT', Genr: 'Путешествия' }"
+                type="is-primary"
+              />
+            </b-field>
+            <hr />
+            <b-field label="Создан" horizontal>
               <b-datepicker
                 v-model="form.created_date"
-                placeholder="Click to select..."
+                placeholder="Выбрать"
                 icon="calendar-today"
                 @input="input"
               >
               </b-datepicker>
-            </b-field>
-            <hr />
-            <b-field label="Progress" horizontal>
-              <b-slider v-model="form.progress" />
             </b-field>
             <hr />
             <b-field horizontal>
@@ -68,14 +70,14 @@
                 type="is-primary"
                 :loading="isLoading"
                 native-type="submit"
-                >Submit</b-button
+                >Отправить</b-button
               >
             </b-field>
           </form>
         </card-component>
         <card-component
           v-if="isProfileExists"
-          title="Client Profile"
+          title="Профиль пользователя"
           icon="account"
           class="tile is-child"
         >
@@ -84,30 +86,24 @@
             class="image has-max-width is-aligned-center"
           />
           <hr />
-          <b-field label="Name">
+          <b-field label="Имя">
             <b-input :value="form.name" custom-class="is-static" readonly />
           </b-field>
-          <b-field label="Company">
+          <b-field label="Telegram ID">
             <b-input :value="form.company" custom-class="is-static" readonly />
           </b-field>
-          <b-field label="City">
+          <b-field label="Username">
             <b-input :value="form.city" custom-class="is-static" readonly />
           </b-field>
-          <b-field label="Created">
+          <b-field label="Телефон">
+            <b-input :value="form.city" custom-class="is-static" readonly />
+          </b-field>
+          <b-field label="Создан">
             <b-input
               :value="createdReadable"
               custom-class="is-static"
               readonly
             />
-          </b-field>
-          <hr />
-          <b-field label="Progress">
-            <progress
-              class="progress is-small is-primary"
-              :value="form.progress"
-              max="100"
-              >{{ form.progress }}</progress
-            >
           </b-field>
         </card-component>
       </tiles>
@@ -123,20 +119,18 @@ import TitleBar from '@/components/TitleBar'
 import HeroBar from '@/components/HeroBar'
 import Tiles from '@/components/Tiles'
 import CardComponent from '@/components/CardComponent'
-import FilePicker from '@/components/FilePicker'
 import UserAvatar from '@/components/UserAvatar'
-import Notification from '@/components/Notification'
+import CheckboxPicker from '@/components/CheckboxPicker'
 
 export default {
   name: 'ClientForm',
   components: {
     UserAvatar,
-    FilePicker,
     CardComponent,
     Tiles,
     HeroBar,
     TitleBar,
-    Notification
+    CheckboxPicker
   },
   props: {
     id: {
@@ -149,7 +143,10 @@ export default {
       isLoading: false,
       form: this.getClearFormObject(),
       createdReadable: null,
-      isProfileExists: false
+      isProfileExists: false,
+      customElementsForm: {
+        checkbox: []
+      }
     }
   },
   computed: {
@@ -159,16 +156,16 @@ export default {
       if (this.isProfileExists) {
         lastCrumb = this.form.name
       } else {
-        lastCrumb = 'New client'
+        lastCrumb = 'Создать пользователя'
       }
 
-      return ['Admin', 'Clients', lastCrumb]
+      return ['Панель управления', 'Пользователи', lastCrumb]
     },
     heroTitle () {
       if (this.isProfileExists) {
         return this.form.name
       } else {
-        return 'Create Client'
+        return 'Создать пользователя'
       }
     },
     heroRouterLinkTo () {
@@ -180,16 +177,16 @@ export default {
     },
     heroRouterLinkLabel () {
       if (this.isProfileExists) {
-        return 'New client'
+        return 'Создать пользователя'
       } else {
-        return 'Dashboard'
+        return 'Панель управления'
       }
     },
     formCardTitle () {
       if (this.isProfileExists) {
-        return 'Edit Client'
+        return 'Редактировать пользователя'
       } else {
-        return 'New Client'
+        return 'Создать пользователя'
       }
     }
   },
@@ -215,8 +212,7 @@ export default {
         company: null,
         city: null,
         created_date: new Date(),
-        created_mm_dd_yyyy: null,
-        progress: 0
+        created_mm_dd_yyyy: null
       }
     },
     getData () {
@@ -235,7 +231,7 @@ export default {
               this.form.created_date = new Date(item.created_mm_dd_yyyy)
               this.createdReadable = dayjs(
                 new Date(item.created_mm_dd_yyyy)
-              ).format('MMM D, YYYY')
+              ).format('D.MM.YYYY')
             } else {
               this.$router.push({ name: 'client.new' })
             }
@@ -250,7 +246,7 @@ export default {
       }
     },
     input (v) {
-      this.createdReadable = dayjs(v).format('MMM D, YYYY')
+      this.createdReadable = dayjs(v).format('D.MM.YYYY')
     },
     submit () {
       this.isLoading = true
