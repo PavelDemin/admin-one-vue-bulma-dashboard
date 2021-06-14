@@ -148,6 +148,9 @@ export default {
       form: {
         name: null,
         email: null,
+        chat_id: null,
+        username: null,
+        language: null,
         phone: null,
         department: null,
         subject: null,

@@ -16,7 +16,7 @@
       </tiles>
       <card-component title="Список подписчиков" class="has-table has-mobile-sort-spaced">
         <clients-table-sample
-          :data-url="`${$router.options.base}data-sources/clients.json`"
+          :data-url="`http://0.0.0.0:8000/admin`"
         />
       </card-component>
     </section>

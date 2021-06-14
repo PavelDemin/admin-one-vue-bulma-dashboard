@@ -28,21 +28,21 @@
             </b-field>
             <b-field label="TelegramID" message="Telegram ID" horizontal>
               <b-input
-                v-model="form.company"
+                v-model="form.chat_id"
                 placeholder="21365466548"
                 required
               />
             </b-field>
             <b-field label="Username" message="Telegram username" horizontal>
               <b-input
-                v-model="form.city"
+                v-model="form.username"
                 placeholder="@ivanpetrov"
                 required
               />
             </b-field>
             <b-field label="Телефон" message="Номер телефона" horizontal>
               <b-input
-                v-model="form.city"
+                v-model="form.phone"
                 placeholder="+79998887654"
                 required
               />
@@ -90,13 +90,13 @@
             <b-input :value="form.name" custom-class="is-static" readonly />
           </b-field>
           <b-field label="Telegram ID">
-            <b-input :value="form.company" custom-class="is-static" readonly />
+            <b-input :value="form.chat_id" custom-class="is-static" readonly />
           </b-field>
           <b-field label="Username">
-            <b-input :value="form.city" custom-class="is-static" readonly />
+            <b-input :value="form.username" custom-class="is-static" readonly />
           </b-field>
           <b-field label="Телефон">
-            <b-input :value="form.city" custom-class="is-static" readonly />
+            <b-input :value="form.phone" custom-class="is-static" readonly />
           </b-field>
           <b-field label="Создан">
             <b-input
@@ -218,20 +218,20 @@ export default {
     getData () {
       if (this.$route.params.id) {
         axios
-          .get(`${this.$router.options.base}data-sources/clients.json`)
+          .get('http://0.0.0.0:8000/admin')
           .then((r) => {
             const item = find(
-              r.data.data,
+              r,
               (item) => item.id === parseInt(this.$route.params.id)
             )
 
             if (item) {
               this.isProfileExists = true
               this.form = item
-              this.form.created_date = new Date(item.created_mm_dd_yyyy)
-              this.createdReadable = dayjs(
-                new Date(item.created_mm_dd_yyyy)
-              ).format('D.MM.YYYY')
+              // this.form.created_date = new Date(item.created_mm_dd_yyyy)
+              // this.createdReadable = dayjs(
+              //   new Date(item.created_mm_dd_yyyy)
+              // ).format('D.MM.YYYY')
             } else {
               this.$router.push({ name: 'client.new' })
             }
