@@ -14,33 +14,24 @@
       :per-page="perPage"
       :striped="true"
       :hoverable="true"
-      default-sort="name"
-      :data=clients
+      default-sort="talk_count"
+      :data=tariffs
     >
       <b-table-column label="ID" field="id" sortable v-slot="props">
         {{ props.row.id }}
       </b-table-column>
-      <b-table-column label="Имя" field="name" sortable v-slot="props">
-        {{ props.row.name }}
+      <b-table-column label="Количество встреч" field="talk_count" sortable v-slot="props">
+        {{ props.row.talk_count }}
       </b-table-column>
-      <b-table-column label="Telegram ID" field="chat_id" sortable v-slot="props">
-        {{ props.row.chat_id }}
-      </b-table-column>
-      <b-table-column label="Username" field="username" sortable v-slot="props">
-        {{ props.row.username }}
-      </b-table-column>
-      <b-table-column label="Телефон" type="tel" field="phone" sortable v-slot="props">
-        {{ props.row.phone }}
-      </b-table-column>
-      <b-table-column label="Создан" v-slot="props">
-        <small class="has-text-grey is-abbr-like" :title="props.row.created">{{ props.row.created }}</small>
+      <b-table-column label="Цена CZK" field="amount" sortable v-slot="props">
+        {{ props.row.amount }}
       </b-table-column>
       <b-table-column custom-key="actions" cell-class="is-actions-cell" v-slot="props">
         <div class="buttons is-right">
           <router-link :to="{name:'client.edit', params: {id: props.row.id}}" class="button is-small is-primary">
             <b-icon icon="account-edit" size="is-small"/>
           </router-link>
-          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props.row)">
+          <button class="button is-small is-danger" type="button" @click.prevent="trashModal(props)">
             <b-icon icon="trash-can" size="is-small"/>
           </button>
         </div>
@@ -69,10 +60,9 @@
 <script>
 import axios from 'axios'
 import ModalBox from '@/components/ModalBox'
-import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'ClientsTableSample',
+  name: 'TariffsTable',
   components: { ModalBox },
   props: {
     dataUrl: {
@@ -88,7 +78,7 @@ export default {
     return {
       isModalActive: false,
       trashObject: null,
-      clients: [],
+      tariffs: [],
       isLoading: true,
       paginated: false,
       perPage: 10,
@@ -96,12 +86,9 @@ export default {
     }
   },
   computed: {
-    ...mapGetters([
-      'USERS'
-    ]),
     trashObjectName () {
       if (this.trashObject) {
-        return this.trashObject.name
+        return ''
       }
       return null
     }
@@ -117,7 +104,7 @@ export default {
             if (r.data.length > this.perPage) {
               this.paginated = true
             }
-            this.clients = r.data
+            this.tariffs = r.data
           }
         })
         .catch((e) => {
@@ -130,24 +117,19 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'GET_USERS_FROM_API'
-    ]),
     trashModal (trashObject) {
       this.trashObject = trashObject
       this.isModalActive = true
     },
     trashConfirm () {
-      console.log(this.trashObject)
       this.isModalActive = false
       this.$buefy.snackbar.open({
         message: 'Успешно!',
         queue: false
       })
-      axios.delete('http://0.0.0.0:8000/admin/users/del/' + this.trashObject.chat_id, {
+      axios.delete('http://0.0.0.0:8000/admin/tariff/del/' + this.trashObject.row.id, {
       })
         .then(function (response) {
-          console.log(response)
         })
         .catch(function (error) {
           console.log(error)

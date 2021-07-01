@@ -11,28 +11,53 @@ const routes = [
     meta: {
       title: 'Dashboard'
     },
-    path: '/',
+    path: '/admin',
     name: 'home',
     component: Home
   },
   {
     meta: {
-      title: 'Tables'
+      title: 'Пользователи'
     },
-    path: '/tables',
-    name: 'tables',
+    path: '/admin/users',
+    name: 'users',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "tables" */ '../views/Tables.vue')
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Users.vue')
   },
   {
     meta: {
-      title: 'Forms'
+      title: 'Интересы'
     },
-    path: '/forms',
-    name: 'forms',
-    component: () => import(/* webpackChunkName: "forms" */ '../views/Forms.vue')
+    path: '/admin/interests',
+    name: 'interests',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Interest.vue')
+  },
+  {
+    meta: {
+      title: 'Отзывы'
+    },
+    path: '/admin/reports',
+    name: 'reports',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Reports.vue')
+  },
+  {
+    meta: {
+      title: 'Тарифы'
+    },
+    path: '/admin/tariffs',
+    name: 'tariffs',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "tables" */ '../views/Tariffs.vue')
   },
   {
     meta: {
@@ -44,17 +69,25 @@ const routes = [
   },
   {
     meta: {
-      title: 'New Client'
+      title: 'Добавить интерес'
     },
-    path: '/client/new',
-    name: 'client.new',
-    component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue')
+    path: '/admin/interest/new',
+    name: 'interest.new',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/InterestNew.vue')
+  },
+  {
+    meta: {
+      title: 'Добавить тариф'
+    },
+    path: '/admin/tariff/new',
+    name: 'tariff.new',
+    component: () => import(/* webpackChunkName: "client-form" */ '../views/TariffNew.vue')
   },
   {
     meta: {
       title: 'Edit Client'
     },
-    path: '/client/:id',
+    path: '/admin/client/:id',
     name: 'client.edit',
     component: () => import(/* webpackChunkName: "client-form" */ '../views/ClientForm.vue'),
     props: true

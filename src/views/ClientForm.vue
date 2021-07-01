@@ -172,7 +172,7 @@ export default {
       if (this.isProfileExists) {
         return { name: 'client.new' }
       } else {
-        return '/'
+        return '/admin'
       }
     },
     heroRouterLinkLabel () {

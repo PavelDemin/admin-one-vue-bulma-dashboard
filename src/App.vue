@@ -1,76 +1,28 @@
 <template>
   <div id="app">
-    <nav-bar />
-    <aside-menu :menu="menu" />
-    <router-view />
-    <footer-bar />
+    <img alt="Vue logo" src="./assets/logo.png">
+    <HelloWorld msg="Welcome to Your Vue.js App"/>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import NavBar from '@/components/NavBar'
-import AsideMenu from '@/components/AsideMenu'
-import FooterBar from '@/components/FooterBar'
+import HelloWorld from './components/HelloWorld.vue'
 
 export default {
-  name: 'admin',
+  name: 'App',
   components: {
-    FooterBar,
-    AsideMenu,
-    NavBar
-  },
-  computed: {
-    menu () {
-      return [
-        'Основное',
-        [
-          {
-            to: '/',
-            icon: 'desktop-mac',
-            label: 'Панель управления'
-          },
-          {
-            to: '/tables',
-            label: 'Tables',
-            icon: 'table',
-            updateMark: true
-          },
-          {
-            to: '/forms',
-            label: 'Forms',
-            icon: 'square-edit-outline'
-          },
-          {
-            to: '/profile',
-            label: 'Profile',
-            icon: 'account-circle'
-          },
-          {
-            label: 'Submenus',
-            subLabel: 'Submenus Example',
-            icon: 'view-list',
-            menu: [
-              {
-                href: '#void',
-                label: 'Sub-item One'
-              },
-              {
-                href: '#void',
-                label: 'Sub-item Two'
-              }
-            ]
-          }
-        ]
-      ]
-    }
-  },
-  created () {
-    this.$store.commit('user', {
-      name: 'Станислав',
-      email: 'john@example.com',
-      avatar: 'https://avatars.dicebear.com/v2/gridy/John-Doe.svg'
-    })
+    HelloWorld
   }
 }
 </script>
+
+<style>
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 60px;
+}
+</style>

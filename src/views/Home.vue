@@ -1,6 +1,5 @@
 <template>
   <div>
-    <title-bar :title-stack="titleStack" />
     <hero-bar :has-right-visible="false">
       Панель управления
     </hero-bar>
@@ -10,13 +9,13 @@
           class="tile is-child"
           type="is-primary"
           icon="account-multiple"
-          :number="users"
+          :number="user_count"
           label="Подписчики"
         />
       </tiles>
       <card-component title="Список подписчиков" class="has-table has-mobile-sort-spaced">
         <clients-table-sample
-          :data-url="`http://0.0.0.0:8000/admin`"
+          :data-url="'http://0.0.0.0:8000/admin/users'"
         />
       </card-component>
     </section>
@@ -30,6 +29,7 @@ import Tiles from '@/components/Tiles'
 import CardWidget from '@/components/CardWidget'
 import CardComponent from '@/components/CardComponent'
 import ClientsTableSample from '@/components/ClientsTableSample'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'admin',
   components: {
@@ -41,18 +41,30 @@ export default {
   },
   data () {
     return {
-      users: 25
+      user_count: 0
     }
   },
-  computed: {},
+  computed: {
+    ...mapGetters([
+      'USERS'
+    ])
+  },
   mounted () {
-    this.fillChartData()
-
+    this.GET_USERS_FROM_API()
+      .then((response) => {
+        if (response.data) {
+          this.user_count = response.data.length
+        }
+      })
     this.$buefy.snackbar.open({
       message: 'С возвращением!',
       queue: false
     })
   },
-  methods: {}
+  methods: {
+    ...mapActions([
+      'GET_USERS_FROM_API'
+    ])
+  }
 }
 </script>
